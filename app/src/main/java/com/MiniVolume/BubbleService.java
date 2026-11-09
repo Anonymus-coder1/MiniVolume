@@ -370,16 +370,23 @@ public class BubbleService extends Service {
         row.addView(bubble);
         row.addView(panel);
 
-        // Menu Shizuku
+        // Menu Shizuku (2 lignes pour tenir sur l'ecran)
         menuRow = new LinearLayout(this);
-        menuRow.setOrientation(LinearLayout.HORIZONTAL);
+        menuRow.setOrientation(LinearLayout.VERTICAL);
         menuRow.setBackground(pill(0xE61E1E2C));
         menuRow.setPadding(dp(6), dp(4), dp(6), dp(4));
         menuRow.setVisibility(View.GONE);
-        addMenuBtn("Reboot", "reboot");
-        addMenuBtn("Soft", "soft");
-        addMenuBtn("Recovery", "recovery");
-        addMenuBtn("Download", "download");
+        LinearLayout menu1 = new LinearLayout(this);
+        menu1.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout menu2 = new LinearLayout(this);
+        menu2.setOrientation(LinearLayout.HORIZONTAL);
+        menuRow.addView(menu1);
+        menuRow.addView(menu2);
+        addMenuBtn(menu1, "Reboot", "reboot");
+        addMenuBtn(menu1, "Soft", "soft");
+        addMenuBtn(menu1, "Recovery", "recovery");
+        addMenuBtn(menu2, "Download", "download");
+        addMenuBtn(menu2, "Éteindre", "poweroff");
 
         root.addView(row);
         root.addView(sliderRow);
@@ -401,7 +408,7 @@ public class BubbleService extends Service {
         h.postDelayed(clampRunnable, 150);
     }
 
-    private void addMenuBtn(final String label, final String action) {
+    private void addMenuBtn(final LinearLayout parent, final String label, final String action) {
         final TextView b = new TextView(this);
         b.setText(label);
         b.setTag(label);
@@ -416,14 +423,14 @@ public class BubbleService extends Service {
         b.setBackground(g);
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        p.setMargins(dp(2), 0, dp(2), 0);
+        p.setMargins(dp(2), dp(2), dp(2), dp(2));
         b.setLayoutParams(p);
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 onMenuTap(b, label, action);
             }
         });
-        menuRow.addView(b);
+        parent.addView(b);
     }
 
     private void onMenuTap(TextView b, String label, final String action) {

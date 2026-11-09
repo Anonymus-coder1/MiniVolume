@@ -83,7 +83,7 @@ public class MainActivity extends Activity {
                 + "• Maintiens + ou − : le volume défile\n"
                 + "• Tap sur le niveau : slider 0-100 (Canal ↻ pour changer Média / Sonnerie / Alarme)\n"
                 + "• Appui long sur le niveau : muet\n"
-                + "• ⚡ : menu Reboot / Soft / Recovery / Download (double tap pour confirmer)\n"
+                + "• ⚡ : menu Reboot / Soft / Recovery / Download / Éteindre (double tap pour confirmer)\n"
                 + "• 📱 : ouvre cette app", 14));
 
         setContentView(sv);

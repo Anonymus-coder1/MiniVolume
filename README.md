@@ -2,7 +2,7 @@
 
 Bulle flottante déplaçable pour régler le volume (slider 0-100, boutons +/-),
 ouverture de l'app depuis la bulle ou la notification, et menu Shizuku
-(Reboot, Soft reboot, Recovery, Download).
+(Reboot, Soft reboot, Recovery, Download, Éteindre).
 
 Projet Gradle construit par GitHub Actions (le workflow est dans .github/workflows/build.yml).
 Shizuku est inclus via Maven : plus besoin de jars à la main.

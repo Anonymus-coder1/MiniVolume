@@ -7,9 +7,8 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 
 /**
- * Acces Shizuku par reflexion : le projet compile meme sans les jars Shizuku.
- * Les fonctions reboot ne marchent qu'une fois les jars ajoutes dans libs/
- * et le bloc ShizukuProvider decommente dans le manifest.
+ * Acces Shizuku par reflexion (la lib Shizuku est fournie par Gradle).
+ * Les commandes sont executees avec les droits ADB ou root de Shizuku.
  */
 public class ShizukuHelper {
 
@@ -95,7 +94,7 @@ public class ShizukuHelper {
         }
     }
 
-    /** action : reboot | soft | recovery | download. Retourne un message ou null. */
+    /** action : reboot | soft | recovery | download | poweroff. Retourne un message ou null. */
     public static String perform(String action) {
         if (!libPresent()) return "Lib Shizuku absente : voir README";
         if (!binderAlive()) return "Shizuku n'est pas démarré";
@@ -110,6 +109,8 @@ public class ShizukuHelper {
             cmd = "reboot recovery";
         } else if ("download".equals(action)) {
             cmd = "reboot download";
+        } else if ("poweroff".equals(action)) {
+            cmd = "reboot -p";
         } else if ("soft".equals(action)) {
             if (getUid() != 0) {
                 return "Le soft reboot demande Shizuku en mode root (refusé en mode ADB)";
