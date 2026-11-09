@@ -19,12 +19,27 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.7'
+      - name: Install Gradle 8.7 (plusieurs sources au cas ou l'une est en panne)
+        run: |
+          for url in \
+            https://github.com/gradle/gradle-distributions/releases/download/v8.7.0/gradle-8.7-bin.zip \
+            https://services.gradle.org/distributions/gradle-8.7-bin.zip \
+            https://mirrors.cloud.tencent.com/gradle/gradle-8.7-bin.zip \
+            https://mirrors.aliyun.com/gradle/gradle-8.7-bin.zip ; do
+            echo "Essai : $url"
+            if curl -fsSL --retry 2 --retry-delay 3 -o "$RUNNER_TEMP/gradle.zip" "$url"; then
+              echo "OK"
+              break
+            fi
+            rm -f "$RUNNER_TEMP/gradle.zip"
+          done
+          unzip -q "$RUNNER_TEMP/gradle.zip" -d "$HOME"
+          echo "$HOME/gradle-8.7/bin" >> "$GITHUB_PATH"
 
       - name: Build debug APK
-        run: gradle assembleDebug --no-daemon
+        run: |
+          gradle --version
+          gradle assembleDebug --no-daemon
 
       - name: Upload APK (artifact)
         uses: actions/upload-artifact@v4
