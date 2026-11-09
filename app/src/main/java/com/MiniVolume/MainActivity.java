@@ -81,9 +81,10 @@ public class MainActivity extends Activity {
                 + "• Tap sur la bulle : ouvre/ferme le panneau\n"
                 + "• Glisse la bulle où tu veux\n"
                 + "• Maintiens + ou − : le volume défile\n"
-                + "• Tap sur le niveau : change de canal (Média / Sonnerie / Alarme)\n"
+                + "• Tap sur le niveau : slider 0-100 (Canal ↻ pour changer Média / Sonnerie / Alarme)\n"
                 + "• Appui long sur le niveau : muet\n"
-                + "• ⚡ : menu Reboot / Soft / Recovery / Download (double tap pour confirmer)", 14));
+                + "• ⚡ : menu Reboot / Soft / Recovery / Download (double tap pour confirmer)\n"
+                + "• 📱 : ouvre cette app", 14));
 
         setContentView(sv);
     }
